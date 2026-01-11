@@ -1,0 +1,52 @@
+name: Release
+
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@master
+    - name: Archive Release
+      uses: thedoctor0/zip-release@0.7.6
+      with:
+        type: 'zip'
+        filename: 'src.zip'
+        exclusions: '*.git* *.github* .gitignore .artifacts readme.md build.ps1'
+    - name: Upload Artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: src.zip
+        path: src.zip
+        overwrite: 'true'
+    - name: Publish PowerShell Module
+      uses: chris-peterson/publish-powershell@v1
+      with:
+        ApiKey: ${{ secrets.GALLERY_API_KEY }}
+  release:
+    name: release
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: src.zip
+          path: zips
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: zips/src.zip
+          tag_name: ${{ github.ref_name }}
+          body: "Automated release of ${{ github.ref_name }}."
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+

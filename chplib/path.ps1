@@ -1,8 +1,4 @@
-enum Env {
-    machine
-    user
-    local
-}
+. $psscriptroot\types.ps1
 
 function path_reload {
     $mach = [Environment]::GetEnvironmentVariable('path', 'Machine')
@@ -39,7 +35,7 @@ function path_in (
 
 function path_add (
     [Parameter(Mandatory = $true)][string] $val,
-    [ValidateSet('Machine', 'User')][Env] $cnt = [Env]::machine
+    [Parameter(Mandatory = $false)][Env] $cnt = [Env]::machine
 ) {
     # add entry to path if not present
 

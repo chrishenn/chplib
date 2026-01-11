@@ -1,4 +1,4 @@
-function takeowner (
+function file_own (
     [Parameter(Mandatory = $true)][string] $path,
     [Parameter(Mandatory = $false)][string] $user = 'BUILTIN\Administrators'
 ) {
@@ -10,7 +10,7 @@ function takeowner (
     # inheritance
     $acl = Get-Acl "$path"
     $acl.SetAccessRuleProtection($True, $False) # disable
-#    $acl.SetAccessRuleProtection($false, $true) # enable
+    # $acl.SetAccessRuleProtection($false, $true) # enable
     [void](Set-Acl $path $acl)
 
     # add full access rules for {user, everyone}
@@ -27,7 +27,7 @@ function takeowner (
     }
     [void](Set-Acl $path $acl)
 
-    $subp = get-childitem $path -ea 0
+    $subp = gci $path -ea 0
     if ($subp) {
         if (Get-Member -inputobject $subp -name 'SetSecurityDescriptor' -Membertype Methods) {
             [void](Set-Acl $subp $acl)
@@ -38,14 +38,14 @@ function takeowner (
     }
 }
 
-function rm_force (
+function file_rmf (
     [Parameter(Mandatory = $true)][string] $path
 ) {
     if (-not (test-path $path)) {
         write-host -f y "not found: $path"
         return
     }
-    [void](takeowner "$path")
+    [void](file_own "$path")
     [void](rm -r -force -ea 0 "$path")
     if ($?) {
         write-host -f green "removed: $path"

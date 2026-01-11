@@ -1,4 +1,4 @@
-function keyadd (
+function rkeyadd (
     [parameter(Mandatory = $true)][ValidateNotNullOrEmpty()] $key
 ) {
     if (!(Test-Path "$key")) {
@@ -6,7 +6,7 @@ function keyadd (
     }
 }
 
-function propexist (
+function rpropexist (
     [parameter(Mandatory = $true)][ValidateNotNullOrEmpty()] $key,
     [parameter(Mandatory = $true)][ValidateNotNullOrEmpty()] $val
 ) {
@@ -21,16 +21,16 @@ function propexist (
     return $true
 }
 
-function setprop (
+function rprop (
     [parameter(Mandatory = $true)][ValidateNotNullOrEmpty()] $key,
     [parameter(Mandatory = $true)][ValidateNotNullOrEmpty()] $name,
     [parameter(Mandatory = $true)][ValidateNotNullOrEmpty()] $type,
-    [parameter(Mandatory = $true)] $Value
+    [parameter(Mandatory = $true)] $val
 ) {
-    keyadd "$key"
-    if (-not (propexist "$key" "$name")) {
-        [void](new-itemProperty "$key" -Name "$name" -PropertyType $type -Value $Value -Force)
+    rkeyadd "$key"
+    if (-not (rpropexist "$key" "$name")) {
+        [void](new-itemProperty "$key" -Name "$name" -PropertyType $type -Value $val -Force)
     } else {
-        [void](Set-ItemProperty "$key" -Name "$name" -Type $type -Value $Value -Force)
+        [void](Set-ItemProperty "$key" -Name "$name" -Type $type -Value $val -Force)
     }
 }
