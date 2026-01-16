@@ -60,6 +60,7 @@ $fnames = @(
 'startup_rm'
 'startup_ls'
 'svc_startup'
+'svc_startup_pwsh'
 'svc_disable'
 'svc_rm'
 'svc_start'

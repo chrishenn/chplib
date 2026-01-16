@@ -1,8 +1,6 @@
-# I generate the module psm1 here to eliminate the manual copying of 'functions' list to psm1;
-# I shipped a broken module too many times
-
 # metadata vars
-$ver = '0.0.8'
+$repo = $psscriptroot
+$ver = get-content $repo\version
 $prvfuncs = @('_namefilter', '_ustr', '_sec_pwsh')
 $rmod = 'chplib.psm1'
 $dotsrc = 'types.ps1'
@@ -11,7 +9,6 @@ $author = 'chrishenn'
 $desc = 'Chris Pwsh Lib'
 
 # generate func names
-$repo = $psscriptroot
 $scripts = gci $repo\chplib -filter *.ps1
 $fnames = @()
 foreach ($script in $scripts) {

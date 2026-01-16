@@ -10,7 +10,7 @@ permissions:
   contents: write
 
 jobs:
-  build:
+  build_publish:
     name: build
     runs-on: ubuntu-latest
     steps:
@@ -31,9 +31,9 @@ jobs:
       uses: chris-peterson/publish-powershell@v1
       with:
         ApiKey: ${{ secrets.GALLERY_API_KEY }}
-  release:
+  github_release:
     name: release
-    needs: build
+    needs: build_publish
     runs-on: ubuntu-latest
     steps:
       - name: Download Artifacts

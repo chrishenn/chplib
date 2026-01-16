@@ -11,6 +11,16 @@ function svc_startup (
     }
 }
 
+function svc_startup_pwsh (
+    [Parameter(Mandatory = $true)][string[]] $names,
+    [Parameter(Mandatory = $true)][Start] $startup
+) {
+    # usage: {svc_startup "csc" "disabled"} or {svc_startup "csc" 4} or {svc_startup "csc" ([Start]::disabled)}
+    foreach ($name in $names) {
+        set-service $name -startuptype $([string]$startup)
+    }
+}
+
 function svc_disable (
     [Parameter(Mandatory = $true)][string[]] $names
 ) {
@@ -25,7 +35,11 @@ function svc_rm (
 ) {
     foreach ($name in $names) {
         svc_disable $name
-        remove-service $name -ea 0
+        if ($PSVersionTable.PSVersion.Major -gt 5) {
+            remove-service -ea 0 $name
+        } else {
+            [void](sc.exe delete $name)
+        }
     }
 }
 
