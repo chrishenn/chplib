@@ -9,16 +9,25 @@ function sec_uac {
     rprop $key 'EnableLUA' 'DWORD' 0
 }
 
+function _sec_pwsh ($scopes = @('localmachine', 'currentuser'), $pol = 'unrestricted') {
+    foreach ($scope in $scopes) {
+        try {
+            Set-ExecutionPolicy -force -scope $scope -ExecutionPolicy $pol
+        } catch {
+            write-host -f y "sec_pwsh: error setting {scope: $scope, policy: $pol}"
+        }
+    }
+}
+
 function sec_pwsh {
-    Set-ExecutionPolicy -force -scope LocalMachine -ExecutionPolicy bypass
-    Set-ExecutionPolicy -force -scope currentuser -ExecutionPolicy bypass
+    # pass args as: ` pwsh -c ${function:_sec_pwsh} -args "'localmachine' 'unrestricted'" `
+    _sec_pwsh
+
     if (inst_app pwsh) {
-        pwsh -c '& {Set-ExecutionPolicy -force -scope localmachine -ExecutionPolicy bypass}'
-        pwsh -c '& {Set-ExecutionPolicy -force -scope currentuser -ExecutionPolicy bypass}'
+        pwsh -c ${function:_sec_pwsh}
     }
     if (inst_app powershell) {
-        powershell -c '& {Set-ExecutionPolicy -force -scope LocalMachine -ExecutionPolicy bypass}'
-        powershell -c '& {Set-ExecutionPolicy -force -scope currentuser -ExecutionPolicy bypass}'
+        powershell -c ${function:_sec_pwsh}
     }
 }
 

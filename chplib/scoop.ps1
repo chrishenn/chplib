@@ -7,7 +7,7 @@ function scoop_bucket (
             $tmp = $name.split(' ')
             scoop bucket add @tmp
         } catch {
-            write-host -f y "error while adding bucket: $name"
+            write-host -f y "scoop_bucket: error while adding bucket: $name"
         }
     }
     scoop update
@@ -21,7 +21,7 @@ function scoop_app_be (
         try {
             scoop install $app
         } catch {
-            write-host -f y "error while installing: $app"
+            write-host -f y "scoop_app_be: error while installing: $app"
         }
     }
 }
@@ -34,7 +34,7 @@ function scoop_app (
     try {
         scoop install @apps
     } catch {
-        write-host -f y "error while installing packages: $apps"
+        write-host -f y "scoop_app: error while installing packages: $apps"
         if ($best_effort) {
             scoop_app_be $apps
         }
@@ -50,16 +50,16 @@ function scoop_shim (
             # adding shims using `scoop add` is NOT idempotent, so this check is necessary
             $split = $pair.split(' ')
             if (-not ($split[0] -and $split[1])) {
-                write-host -f y "scoop shim: malformed shim: $pair"
+                write-host -f y "scoop_shim: malformed shim: $pair"
                 return
             }
             if (scoop shim info $split[0]) {
-                write-host -f green "scoop shim: already exists for: $pair"
+                write-host -f green "scoop_shim: already exists for: $pair"
             } else {
                 scoop shim add $split[0] $(scoop which $split[1])
             }
         } catch {
-            write-host -f y "error while adding shim: $pair"
+            write-host -f y "scoop_shim: error while adding shim: $pair"
         }
     }
 }
@@ -67,18 +67,11 @@ function scoop_shim (
 function scoop_base (
     [string[]] $basepkgs = @()
 ) {
-    $minpkgs = @('7zip', 'git', 'aria2', 'dark', 'innounp', 'lessmsi', 'sudo', 'pwsh')
-    foreach ($pkg in $minpkgs) {
-        if (-not $basepkgs.contains($pkg)) {
-            $basepkgs += $pkg
-        }
-    }
     if (-not (inst_gcm scoop)) {
+        write-host -f c 'scoop_base: installing scoop'
         iex "& {$(irm get.scoop.sh -useb)} -RunAsAdmin"
     }
-    scoop_app @basepkgs
+    scoop_app $basepkgs -best_effort
     scoop config aria2-warning-enabled false
     scoop update
-    pwsh -c '& {Set-ExecutionPolicy -force -scope localmachine -ExecutionPolicy bypass}'
-    pwsh -c '& {Set-ExecutionPolicy -force -scope currentuser -ExecutionPolicy bypass}'
 }

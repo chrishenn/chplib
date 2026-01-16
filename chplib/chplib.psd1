@@ -12,13 +12,13 @@
 RootModule = 'chplib.psm1'
 
 # Version number of this module.
-ModuleVersion = '0.0.7'
+ModuleVersion = '0.0.8'
 
 # Supported PSEditions
 # CompatiblePSEditions = @()
 
 # ID used to uniquely identify this module
-GUID = '86dbf6f0-4b83-4ba5-957c-563cdc7ea954'
+GUID = '1a276a54-f7c7-410b-86a6-2638116a94e9'
 
 # Author of this module
 Author = 'chrishenn'

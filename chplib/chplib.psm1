@@ -1,18 +1,75 @@
 $fnames = @(
-    'appadd_exe', 'inst_gcm', 'inst_scoop', 'inst_reg', 'inst_app', 'apprm_msi',
-    'appx_find', 'appx_rm', 'appxsys_find', 'appxsys_rm', 'autologin',
-    'autologin_it', 'env_interactive', 'file_own', 'file_rmf', 'cpu',
-    'nvidia_gpu', 'nvidia_wait', 'amd_apu', 'intel_apu', 'intel_wifi',
-    'net_smbsettings', 'net_firewall', 'net_mntshare', 'net_up', 'net_wait',
-    'net_dlretry', 'path_reload', 'path_ls', 'path_in', 'path_add', 'path_rm',
-    'pwr_unhide', 'pwr_throttling', 'pwr_hybridsleep', 'pwr_standby',
-    'pwr_hybernate', 'pwr_scheme', 'pwr_ultimate', 'pwr_dpst', 'keyadd',
-    'propexist', 'rprop', 'scoop_bucket', 'scoop_app_be', 'scoop_app',
-    'scoop_shim', 'scoop_base', 'sec_admin', 'sec_uac', 'sec_pwsh',
-    'sec_defender', 'sec_pw', 'sec_ucpd', 'sec_ie', 'sec_spy', 'startup_reg',
-    'startup_dir', 'startup_rm', 'startup_ls', 'svc_startup', 'svc_disable',
-    'svc_rm', 'svc_start', 'svc_stop', 'svc_stems', 'svc_regfind', 'tray_hide',
-    'update_all', 'update_activate'
+'appadd_exe'
+'inst_gcm'
+'inst_scoop'
+'inst_reg'
+'inst_app'
+'apprm_msi'
+'appx_find'
+'appx_rm'
+'appxsys_find'
+'appxsys_rm'
+'autologin'
+'autologin_it'
+'env_interactive'
+'file_own'
+'file_rmf'
+'hw_cpu'
+'hw_nvgpu'
+'hw_nvwait'
+'hw_amdapu'
+'hw_intelapu'
+'hw_intelwifi'
+'net_smbsettings'
+'net_firewall'
+'net_mntshare'
+'net_up'
+'net_wait'
+'net_dlretry'
+'path_reload'
+'path_ls'
+'path_in'
+'path_add'
+'path_rm'
+'pwr_unhide'
+'pwr_throttling'
+'pwr_hybridsleep'
+'pwr_standby'
+'pwr_hybernate'
+'pwr_scheme'
+'pwr_ultimate'
+'pwr_dpst'
+'rkeyadd'
+'rpropexist'
+'rprop'
+'scoop_bucket'
+'scoop_app_be'
+'scoop_app'
+'scoop_shim'
+'scoop_base'
+'sec_admin'
+'sec_uac'
+'sec_pwsh'
+'sec_defender'
+'sec_pw'
+'sec_ucpd'
+'sec_ie'
+'sec_spy'
+'startup_reg'
+'startup_dir'
+'startup_rm'
+'startup_ls'
+'svc_startup'
+'svc_disable'
+'svc_rm'
+'svc_start'
+'svc_stop'
+'svc_stems'
+'svc_regfind'
+'tray_hide'
+'update_all'
+'update_activate'
+
 )
 
 $scripts = gci $psscriptroot -filter *.ps1
