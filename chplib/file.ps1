@@ -21,7 +21,7 @@ function file_own (
     $acl.AddAccessRule($rule)
 
     # remove any deny rules
-    $denies = $acl.access | where-object {$_.AccessControlType -eq "Deny"}
+    $denies = $acl.access | ? {$_.AccessControlType -eq "Deny"}
     foreach ($rule in $denies) {
         $acl.RemoveAccessRule($rule)
     }

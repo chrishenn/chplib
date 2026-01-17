@@ -2,10 +2,12 @@
 
 A pwsh library to support my standard windows 11 tweaks, debloating, and config
 
-These three repos are meant to be used together:
+These repos are meant to be used together:
+
 - https://github.com/chrishenn/unattend
 - https://github.com/chrishenn/chplib
 - https://github.com/chrishenn/scoops
+- https://github.com/chrishenn/drivers
 
 ## usage
 
@@ -39,7 +41,7 @@ inspect them.
 
 ```pwsh
 # manually bump the release version in the `version` file
-0.0.9
+0.0.11
 
 # generate module metadata and populate into chplib.psm1, chplib.psd1
 pwsh -c ./build.ps1
@@ -57,7 +59,3 @@ ver=$(sed '1!d' version)
 git tag -a "v$ver" -m "v$ver" 
 git push --tags
 ```
-
-## ref
-
-https://www.powershellgallery.com/packages/BcAdmin/0.0.9/Content/functions%5CUpdate-Psm1FromSource.ps1

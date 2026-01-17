@@ -46,7 +46,7 @@ function pwr_scheme (
     if (-not ((Get-PowercfgScheme).name -contains $sname)) {
         powercfg /DuplicateScheme $sguid
     }
-    if ($sch = Get-PowercfgScheme | where-object {$_.name -eq $sname}) {
+    if ($sch = Get-PowercfgScheme | ? {$_.name -eq $sname}) {
         return $sch.guid.guid
     }
     return $sdefault
@@ -70,7 +70,7 @@ function pwr_dpst (
 
     $ftcname = "FeatureTestControl"
     $key = 'HKLM:\SYSTEM\CurrentControlSet\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}'
-    $keys = gci -ea 0 "$key" | Where-Object {$_.Name -match '\\\d{4}$'}
+    $keys = gci -ea 0 "$key" | ? {$_.Name -match '\\\d{4}$'}
 
     $ftc_path = ""
     foreach ($key in $keys) {

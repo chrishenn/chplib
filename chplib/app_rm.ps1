@@ -2,7 +2,7 @@ function _ustr (
     $name
 ) {
     $key = 'HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*'
-    $chld = gci $key | get-itemproperty | Where-Object {$_.DisplayName -match "$name"}
+    $chld = gci $key | get-itemproperty | ? {$_.DisplayName -match "$name"}
     if ($chld) {
         return $chld.uninstallstring
     }

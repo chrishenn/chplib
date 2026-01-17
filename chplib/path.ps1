@@ -66,12 +66,12 @@ function path_rm (
     switch ($cnt) {
         ([Env]::local) {
             $vals = $env:path.split(";")
-            $vals = $vals | Where-Object {$_ -ne $val}
+            $vals = $vals | ? {$_ -ne $val}
             $env:path = $vals -join ';'
         }
         default {
             $vals = [Environment]::GetEnvironmentVariable('path', $cnt).split(";")
-            $vals = $vals | Where-Object {$_ -ne $val}
+            $vals = $vals | ? {$_ -ne $val}
             [Environment]::SetEnvironmentVariable('path', $vals -join ';', $cnt)
         }
     }

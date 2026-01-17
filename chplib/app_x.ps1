@@ -1,7 +1,7 @@
 function appx_find (
     [string] $pattern
 ) {
-    return (Get-AppxPackage -allusers | Where-Object {$_.packagefullname -like $pattern})
+    return (Get-AppxPackage -allusers | ? {$_.packagefullname -like $pattern})
 }
 
 function appx_rm (
@@ -13,7 +13,7 @@ function appx_rm (
 function appxsys_find (
     [string] $pattern
 ) {
-    Get-AppxProvisionedPackage -allusers -online | Where-Object {$_.packagename -like $pattern}
+    Get-AppxProvisionedPackage -allusers -online | ? {$_.packagename -like $pattern}
 }
 
 function appxsys_rm (

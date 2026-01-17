@@ -18,8 +18,8 @@ function hw_cpu {
 }
 
 function hw_nvgpu {
-    return get-pnpdevice -present -class display | where-object {$_.manufacturer -eq "nvidia"}
-    # return gcim Win32_VideoController | Where-Object {$_.VideoProcessor -match "nvidia"}
+    return get-pnpdevice -present -class display | ? {$_.manufacturer -eq "nvidia"}
+    # return gcim Win32_VideoController | ? {$_.VideoProcessor -match "nvidia"}
 }
 
 function hw_nvwait (
@@ -43,18 +43,21 @@ function hw_nvwait (
 function hw_amdapu {
     # assumes that the MS basic display driver will be correctly assigned by default
     $venstr = "ven_1002"
-    return Get-pnpdevice -present -class display | where-object {$_.instanceid -match $venstr}
+    return Get-pnpdevice -present -class display | ? {$_.instanceid -match $venstr}
 }
 
 function hw_intelapu {
     # assumes that the MS basic display driver will be correctly assigned by default
     $venstr = "ven_8086"
-    return Get-pnpdevice -present -class display | where-object {$_.instanceid -match $venstr}
+    return Get-pnpdevice -present -class display | ? {$_.instanceid -match $venstr}
 }
 
 function hw_intelwifi {
     # according to https://www.devicekb.com/hardware/pci-vendors/ven_8086-dev_272b
     # PCI\VEN_8086&DEV_272B is recognized as Intel Wi-Fi 7 AX1775*/AX1790*/BE20*/BE401/BE1750* 2x2
-    $devstr = 'PCI\\VEN_8086&DEV_272B'
-    return Get-pnpdevice -present | where-object {$_.instanceid -match $devstr}
+    # and
+    # Hardware ID PCI\VEN_8086&DEV_51F1 is recognized as Raptor Lake PCH CNVi WiFi
+    # in practice, this matched my killer AX211, and the intel driver chris/intelwifi worked for it
+    $devstr = '(PCI\\VEN_8086&DEV_272B|PCI\\VEN_8086&DEV_51F1)'
+    return Get-pnpdevice | ? {$_.instanceid -match $devstr}
 }

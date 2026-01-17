@@ -10,7 +10,7 @@ function inst_scoop (
     if (-not (inst_gcm scoop)) {
         return $false
     }
-    return ((scoop export | ConvertFrom-Json).apps | where-object {$_.name -eq "$name"} | measure).count -gt 0
+    return ((scoop export | ConvertFrom-Json).apps | ? {$_.name -eq "$name"} | measure).count -gt 0
 }
 
 function inst_reg (
@@ -18,7 +18,7 @@ function inst_reg (
 ) {
     $apps = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
     $apps += Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
-    return ($apps | Where-Object {$_.displayname -match "$name"} | measure).count -gt 0
+    return ($apps | ? {$_.displayname -match "$name"} | measure).count -gt 0
 }
 
 function inst_app (
