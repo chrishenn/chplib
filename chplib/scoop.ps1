@@ -71,7 +71,8 @@ function scoop_base (
         write-host -f c 'scoop_base: installing scoop'
         iex "& {$(irm get.scoop.sh -useb)} -RunAsAdmin"
     }
-    scoop_app $basepkgs -best_effort
+    if ($basepkgs) {
+        scoop_app $basepkgs -best_effort
+    }
     scoop config aria2-warning-enabled false
-    scoop update
 }
