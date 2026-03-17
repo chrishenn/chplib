@@ -16,8 +16,8 @@ function inst_scoop (
 function inst_reg (
     [parameter(Mandatory = $true)][ValidateNotNullOrEmpty()][string] $name
 ) {
-    $apps = Get-ItemProperty "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
-    $apps += Get-ItemProperty "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
+    $apps = gp "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\*"
+    $apps += gp "HKLM:\SOFTWARE\Wow6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*"
     return ($apps | ? {$_.displayname -match "$name"} | measure).count -gt 0
 }
 
