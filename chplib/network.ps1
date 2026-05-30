@@ -40,8 +40,8 @@ function net_wait (
         write-host "NETWORK: waiting for network"
         start-sleep -s $pause
 
-        waited += $pause
-        if (waited -ge $timeout) {
+        $waited += $pause
+        if ($waited -ge $timeout) {
             write-host "NETWORK: timed out after waiting for {$timeout} seconds"
             return $false
         }
