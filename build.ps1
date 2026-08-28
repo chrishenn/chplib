@@ -1,7 +1,6 @@
 # metadata vars
 $repo = $psscriptroot
 $ver = get-content $repo\version
-$prvfuncs = @('_namefilter', '_ustr', '_sec_pwsh')
 $rmod = 'chplib.psm1'
 $dotsrc = 'types.ps1'
 $psmin = '5.0'
@@ -17,9 +16,9 @@ foreach ($script in $scripts) {
         {$args[0] -is [System.Management.Automation.Language.FunctionDefinitionAst]}, $false
     ).Name
 }
-foreach ($prvfunc in $prvfuncs) {
-    $fnames = $fnames | ? {$_ -ne $prvfunc}
-}
+
+# $fnames can include nulls here. If a function name starts with _, consider it private and don't export
+$fnames = $fnames | ? {$_ -and ! ($_.startswith('_'))}
 $fnames = sort-object -inputobject $fnames
 
 # generate psm1
