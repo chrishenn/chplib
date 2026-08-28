@@ -1,5 +1,6 @@
 $fnames = @(
 'appadd_exe'
+'appinfo_reg'
 'inst_gcm'
 'inst_scoop'
 'inst_reg'
@@ -55,6 +56,7 @@ $fnames = @(
 'sec_ucpd'
 'sec_ie'
 'sec_spy'
+'shell_interactive'
 'startup_reg'
 'startup_dir'
 'startup_rm'
