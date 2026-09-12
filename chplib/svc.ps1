@@ -52,7 +52,7 @@ function svc_rm (
     }
 }
 
-function svc_rm_pwsh (
+function svc_pwsh_rm (
     [Parameter(Mandatory = $true)][string[]] $names
 ) {
     # use pwsh set-service to disable svc
