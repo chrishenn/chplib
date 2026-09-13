@@ -41,7 +41,6 @@ inspect them.
 
 ```pwsh
 # manually bump the release version in the `version` file
-0.0.13
 
 # generate module metadata and populate into chplib.psm1, chplib.psd1
 pwsh -c ./build.ps1
@@ -56,7 +55,8 @@ $ver = get-content $pwd\version
 # bash:
 ver=$(sed '1!d' version)
 
-git add *
+$ver = get-content $pwd\version
+git add -A
 git commit -am "release: $ver"
 git push
 git tag -a "v$ver" -m "v$ver" 

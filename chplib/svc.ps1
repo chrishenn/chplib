@@ -58,7 +58,7 @@ function svc_pwsh_rm (
     # use pwsh set-service to disable svc
     foreach ($name in $names) {
         if (-not ($svc = get-service $name -ea 0)) {
-            write-host -f y "WARN svc_rm_pwsh: no service found with name $name"
+            write-host -f y "WARN svc_pwsh_rm: no service found with name $name"
             continue
         }
         stop-service -ea 0 -force $svc
