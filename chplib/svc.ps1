@@ -42,7 +42,7 @@ function svc_rm (
         stop-service -ea 0 -force $svc
 
         $key = "HKLM:\SYSTEM\CurrentControlSet\Services\$($svc.name)"
-        rprop $key 'Start' 'DWORD' ([int][start]::disabled)
+        rprop $key 'Start' 'DWORD' ([int][Start]::disabled)
 
         if ($PSVersionTable.PSVersion.Major -gt 5) {
             remove-service -ea 0 -inputobject $svc

@@ -1,3 +1,5 @@
+. $psscriptroot\types.ps1
+
 function sec_admin {
     $id = [Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
     return $id.IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")
@@ -76,8 +78,10 @@ function sec_pw {
 function sec_ucpd {
     # requires restart to take effect
     [void](Disable-ScheduledTask '\Microsoft\Windows\AppxDeploymentClient\UCPD velocity')
-    $key = 'HKLM:\SYSTEM\CurrentControlSet\Services\UCPD'
-    rprop $key 'Start' 'DWORD' 4
+    svc_disable 'UCPD'
+
+#    $key = 'HKLM:\SYSTEM\CurrentControlSet\Services\UCPD'
+#    rprop $key 'Start' 'DWORD' ([int][Start]::disabled)
 }
 
 function sec_ie {
