@@ -26,7 +26,7 @@ function svc_disable (
         stop-service -ea 0 -force $svc
 
         $key = "HKLM:\SYSTEM\CurrentControlSet\Services\$($svc.name)"
-        rprop $key 'Start' 'DWORD' ([Start]::disabled)
+        rprop $key 'Start' 'DWORD' ([int][Start]::disabled)
     }
 }
 
@@ -63,10 +63,10 @@ function svc_pwsh_rm (
         }
         stop-service -ea 0 -force $svc
         if ($PSVersionTable.PSVersion.Major -gt 5) {
-            set-service -ea 0 -force $svc -startuptype 'disabled'
+            set-service -ea 0 -force $svc -startuptype ([Start]::disabled)
             remove-service -ea 0 -inputobject $svc
         } else {
-            set-service -ea 0 -inputobject $svc -startuptype 'disabled'
+            set-service -ea 0 -inputobject $svc -startuptype ([Start]::disabled)
             [void](sc.exe delete $svc)
         }
     }
