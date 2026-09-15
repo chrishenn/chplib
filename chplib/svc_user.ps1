@@ -34,7 +34,6 @@ $svc_user = @(
     'ConsentUxUserSvc'
     'PimIndexMaintenanceSvc'
     'BcastDVRUserService'
-#    'MessagingService'
     'NPSMSvc'
     'OneSyncSvc'
     'P9RdrService'
@@ -42,7 +41,9 @@ $svc_user = @(
     'UdkUserSvc'
     'UserDataSvc'
     'UnistoreSvc'
-#    'WpnUserService'
+    # required for the nvidia app to launch. wpnservice is not required.
+    # 'MessagingService'
+    # 'WpnUserService'
 )
 
 function svc_user_rm (
