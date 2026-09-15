@@ -1,3 +1,5 @@
+. $psscriptroot\types.ps1
+
 [System.Collections.Generic.HashSet[string]] $svc_user_known = @(
     'AarSvc'
     'BluetoothUserService'
@@ -32,7 +34,7 @@ $svc_user = @(
     'ConsentUxUserSvc'
     'PimIndexMaintenanceSvc'
     'BcastDVRUserService'
-    'MessagingService'
+#    'MessagingService'
     'NPSMSvc'
     'OneSyncSvc'
     'P9RdrService'
@@ -40,19 +42,21 @@ $svc_user = @(
     'UdkUserSvc'
     'UserDataSvc'
     'UnistoreSvc'
-    'WpnUserService'
+#    'WpnUserService'
 )
 
 function svc_user_rm (
-    [string[]] $names = $svc_user
+    [string[]] $names = $svc_user,
+    [UserSvc] $state = [UserSvc]::disabled
 ) {
     # Disable user services. Disabled user-level services will not be created on next boot
+    # Set to 3 to enable
     foreach ($name in $names) {
         if (! ($svc_user_known.contains($name))) {
             $m = "svc_rm_user: warn: user service name $name is not in the set of known user service names: $svc_user_known"
             write-host -y $m
         }
         $key = "HKLM:\System\CurrentControlSet\Services\$name"
-        rprop $key 'UserServiceFlags' 'DWORD' 0
+        rprop $key 'UserServiceFlags' 'DWORD' ([int]$state)
     }
 }

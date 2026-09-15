@@ -22,3 +22,8 @@ enum Start {
     manual = 3
     disabled = 4
 }
+
+enum UserSvc {
+    enabled = 3
+    disabled = 0
+}
