@@ -55,7 +55,7 @@ function svc_user_rm (
     foreach ($name in $names) {
         if (! ($svc_user_known.contains($name))) {
             $m = "svc_rm_user: warn: user service name $name is not in the set of known user service names: $svc_user_known"
-            write-host -y $m
+            write-host -f y $m
         }
         $key = "HKLM:\System\CurrentControlSet\Services\$name"
         rprop $key 'UserServiceFlags' 'DWORD' ([int]$state)

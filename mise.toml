@@ -1,13 +1,16 @@
 [tools]
+"pipx:bump-my-version" = "latest"
 powershell = "latest"
+uv = "latest"
 
 [tasks.release]
+description = "tag and push a release"
 shell = "pwsh -c"
 alias = "r"
-run = '''
-write-host -r 'manually bump the version in ./version'
+run_windows = '''
+$ver = bump-my-version show --increment patch new_version
+echo $ver > ./version
 pwsh -c ./build.ps1
-$ver = get-content $pwd\version
 git add -A
 git commit -am "release: $ver"
 git push
