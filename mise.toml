@@ -1,0 +1,16 @@
+[tools]
+powershell = "latest"
+
+[tasks.release]
+shell = "pwsh -c"
+alias = "r"
+run = '''
+write-host -r 'manually bump the version in ./version'
+pwsh -c ./build.ps1
+$ver = get-content $pwd\version
+git add -A
+git commit -am "release: $ver"
+git push
+git tag -a "v$ver" -m "v$ver"
+git push --tags
+'''

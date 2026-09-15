@@ -27,22 +27,22 @@
 )
 
 $svc_user = @(
+    'BcastDVRUserService'
     'CaptureService'
     'cbdhsvc'
     'CDPUserSvc'
     'CloudBackupRestoreSvc'
     'ConsentUxUserSvc'
-    'PimIndexMaintenanceSvc'
-    'BcastDVRUserService'
+    'MessagingService'
     'NPSMSvc'
     'OneSyncSvc'
     'P9RdrService'
     'PenService'
+    'PimIndexMaintenanceSvc'
     'UdkUserSvc'
-    'UserDataSvc'
     'UnistoreSvc'
+    'UserDataSvc'
     # required for the nvidia app to launch. wpnservice is not required.
-    # 'MessagingService'
     # 'WpnUserService'
 )
 
