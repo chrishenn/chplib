@@ -2,7 +2,7 @@
 
 function sec_admin {
     $id = [Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()
-    return $id.IsInRole([Security.Principal.WindowsBuiltInRole]"Administrator")
+    return $id.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
 }
 
 function sec_uac {

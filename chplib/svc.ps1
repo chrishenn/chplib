@@ -72,6 +72,31 @@ function svc_pwsh_rm (
     }
 }
 
+function svc_start_wait (
+    [Parameter(Mandatory = $true)][string] $name,
+    [int] $timeout = 30,
+    [int] $pause = 3
+) {
+    if ([string](get-service $name).status -eq [SvcState]::running) {
+        return $true
+    }
+    start-service $name
+    [int] $loops = max ($timeout / $pause), 1
+    while ([string](get-service $name).status -ne [SvcState]::running) {
+        $loops -= 1
+        if ($loops -le 0) {
+            break
+        }
+        start-sleep 3
+        write-host "waiting for ($name) to start"
+    }
+    if ([string](get-service $name).status -ne [SvcState]::running) {
+        write-host -f r "error: ($name) did not start after waiting for ($timeout) seconds"
+        return $false
+    }
+    return $true
+}
+
 function svc_start (
     [Parameter(Mandatory = $true)][string[]] $names
 ) {

@@ -23,6 +23,11 @@ enum Start {
     disabled = 4
 }
 
+enum SvcState {
+    running
+    stopped
+}
+
 enum UserSvc {
     enabled = 3
     disabled = 0
