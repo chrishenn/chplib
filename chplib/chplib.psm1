@@ -70,6 +70,7 @@ $fnames = @(
 'svc_stop'
 'svc_stems'
 'svc_regfind'
+'time_sync'
 'tray_hide'
 'update_all'
 'update_activate'
