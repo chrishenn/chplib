@@ -44,12 +44,14 @@ tag and push a release
 ```pwsh
 # - manually bump the release version in the `version` file
 # - tag and push a release
-mise run r
+mise release
 ```
 
 tag and push a release: manual steps
 
 ```pwsh
+# manually bump the version number in ./version
+
 # generate module metadata and populate into chplib.psm1, chplib.psd1
 pwsh -c ./build.ps1
 

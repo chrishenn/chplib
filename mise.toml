@@ -17,3 +17,8 @@ git push
 git tag -a "v$ver" -m "v$ver"
 git push --tags
 '''
+
+[tasks.sync]
+alias = 's'
+usage = 'arg "<msg>" default="sync"'
+run = 'git add -A && git commit -am "{{usage.msg}}" && git pull && git push'
