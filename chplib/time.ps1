@@ -5,7 +5,7 @@ function time_sync_enable {
     $key = 'HKLM:\SYSTEM\CurrentControlSet\Services\W32Time\Parameters'
     rprop $key 'Type' 'String' 'NTP'
 
-    w32tm /register
+    w32tm /register | out-null
     svc_startup w32time ([Start]::automatic)
     svc_start_wait w32time
 }
