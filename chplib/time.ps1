@@ -2,6 +2,7 @@
 
 function time_sync {
     # requires time_sync_enable; sets the setting 'set time automatically' and gates the w32tm service
+    time_sync_enable
     start-service w32time
     w32tm /resync /force
 }
